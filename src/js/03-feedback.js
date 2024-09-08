@@ -1,4 +1,6 @@
 import throttle from 'lodash.throttle';
+import '../css/03-common.css';
+import '../css/03-feedback.css';
 
 const feedbackForm = document.querySelector('.feedback-form');
 const emailInput = feedbackForm.childNodes[1].childNodes[1];
