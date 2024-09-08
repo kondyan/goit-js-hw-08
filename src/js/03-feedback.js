@@ -9,21 +9,21 @@ const textarea = feedbackForm.childNodes[3].childNodes[1];
 const STORAGE_KEY_EMAIL = 'feedback-form-emailInput-state';
 const STORAGE_KEY_TEXT = 'feedback-form-textarea-state';
 
-textarea.addEventListener('input', throttle(onTextareaInput, 500));
-emailInput.addEventListener('input', throttle(onEmailInput, 500));
+textarea.addEventListener('input', throttle(onTextareaInput, 1000));
+emailInput.addEventListener('input', throttle(onEmailInput, 1000));
 feedbackForm.addEventListener('submit', onFormSubmit);
 
 populateTextarea();
 
 // saving textarea and email in localstorage
 function onTextareaInput(evt) {
-  const message = evt.currentTarget.value;
+  const message = evt.target.value;
 
   localStorage.setItem(STORAGE_KEY_TEXT, message);
 }
 
 function onEmailInput(evt) {
-  const message = evt.currentTarget.value;
+  const message = evt.target.value;
 
   localStorage.setItem(STORAGE_KEY_EMAIL, message);
 }
@@ -32,10 +32,9 @@ function onEmailInput(evt) {
 function onFormSubmit(evt) {
   evt.preventDefault();
 
-  console.log(evt);
-
   evt.currentTarget.reset();
-  localStorage.removeItem(STORAGE_KEY_TEXT, STORAGE_KEY_EMAIL);
+  localStorage.removeItem(STORAGE_KEY_TEXT);
+  localStorage.removeItem(STORAGE_KEY_EMAIL);
 }
 
 function populateTextarea() {
