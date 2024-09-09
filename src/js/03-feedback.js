@@ -15,13 +15,14 @@ feedbackForm.addEventListener('submit', onFormSubmit);
 
 populateTextarea();
 
-// saving textarea and email in localstorage
+// saving textarea in localstorage
 function onTextareaInput(evt) {
   const message = evt.target.value;
 
   localStorage.setItem(STORAGE_KEY_TEXT, message);
 }
 
+// saving email in localstorage
 function onEmailInput(evt) {
   const message = evt.target.value;
 
@@ -37,6 +38,7 @@ function onFormSubmit(evt) {
   localStorage.removeItem(STORAGE_KEY_EMAIL);
 }
 
+// sending data back to the input areas
 function populateTextarea() {
   const savedMessage = localStorage.getItem(STORAGE_KEY_TEXT);
   const savedEmail = localStorage.getItem(STORAGE_KEY_EMAIL);
