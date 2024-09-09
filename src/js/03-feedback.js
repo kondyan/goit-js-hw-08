@@ -6,27 +6,25 @@ const feedbackForm = document.querySelector('.feedback-form');
 const emailInput = feedbackForm.childNodes[1].childNodes[1];
 const textarea = feedbackForm.childNodes[3].childNodes[1];
 
-const STORAGE_KEY_EMAIL = 'feedback-form-emailInput-state';
-const STORAGE_KEY_TEXT = 'feedback-form-textarea-state';
+const STORAGE_KEY = 'feedback-form-state';
 
-textarea.addEventListener('input', throttle(onTextareaInput, 1000));
-emailInput.addEventListener('input', throttle(onEmailInput, 1000));
+feedbackForm.addEventListener('input', throttle(onInput, 200));
 feedbackForm.addEventListener('submit', onFormSubmit);
 
-populateTextarea();
+const formData = {};
 
-// saving textarea in localstorage
-function onTextareaInput(evt) {
+populateInputs();
+
+// saving inputs in localstorage
+function onInput(evt) {
+  if (evt.currentTarget === evt.target) {
+    return;
+  }
   const message = evt.target.value;
 
-  localStorage.setItem(STORAGE_KEY_TEXT, message);
-}
+  formData[evt.target.name] = message;
 
-// saving email in localstorage
-function onEmailInput(evt) {
-  const message = evt.target.value;
-
-  localStorage.setItem(STORAGE_KEY_EMAIL, message);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 }
 
 // sending form simulation
@@ -34,20 +32,17 @@ function onFormSubmit(evt) {
   evt.preventDefault();
 
   evt.currentTarget.reset();
-  localStorage.removeItem(STORAGE_KEY_TEXT);
-  localStorage.removeItem(STORAGE_KEY_EMAIL);
+  localStorage.removeItem(STORAGE_KEY);
 }
 
 // sending data back to the input areas
-function populateTextarea() {
-  const savedMessage = localStorage.getItem(STORAGE_KEY_TEXT);
-  const savedEmail = localStorage.getItem(STORAGE_KEY_EMAIL);
+function populateInputs() {
+  const savedData = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
-  if (savedMessage) {
-    textarea.value = savedMessage;
-  }
+  console.log(savedData);
 
-  if (savedEmail) {
-    emailInput.value = savedEmail;
+  if (savedData) {
+    emailInput.value = savedData.email;
+    textarea.value = savedData.message;
   }
 }
