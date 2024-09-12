@@ -17,6 +17,7 @@
   "author": "Arsenii Kondratenko <arsenij.kondratenko@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@vimeo/player": "^2.24.0",
     "basiclightbox": "^5.0.4",
     "lodash.throttle": "^4.1.1",
     "simplelightbox": "^2.14.3",
