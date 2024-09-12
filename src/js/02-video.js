@@ -7,8 +7,6 @@ const iframe = document.querySelector('iframe');
 const player = new Player(iframe);
 
 const onVideoPlay = function (evt) {
-  console.log(evt.seconds);
-
   localStorage.setItem(STORAGE_KEY, evt.seconds);
 };
 
